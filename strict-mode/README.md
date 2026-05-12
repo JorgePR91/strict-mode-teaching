@@ -1,4 +1,62 @@
-# Strict Mode — Sistema de enseñanza guiada para asistentes de IA
+# 🎓 Strict Mode
+
+### Tu asistente de IA, en modo profesor
+
+> *"Genera un endpoint de login en Express."*
+>
+> **Sin Strict Mode:** recibes 40 líneas de código que no entiendes y un par de librerías nuevas instaladas.
+>
+> **Con Strict Mode:** el asistente divide la tarea en 5 pasos, te explica cada uno, espera tu confirmación, y al final **sabes qué has construido y por qué**.
+
+---
+
+## Bienvenida
+
+Si has llegado hasta aquí, probablemente te ha pasado esto:
+
+- Le pides algo a una IA y te genera **mucho más** de lo que pediste.
+- El código funciona, pero **no sabrías mantenerlo** ni explicarlo.
+- Cuando algo falla, no tienes ni idea de **por dónde empezar a mirar**.
+- Sientes que vas más rápido… y a la vez **aprendes menos** que antes.
+
+**Strict Mode** es un archivo de instrucciones de unas 250 líneas que, cargado en el contexto de tu asistente, le obliga a:
+
+- 🧩 **Dividir** todo trabajo en pasos pequeños y verificables.
+- 📖 **Explicar antes de implementar**, no después.
+- ✋ **Detenerse** tras cada paso y esperar tu confirmación.
+- 🚫 **No encadenar** acciones aunque tú se lo pidas.
+- 🎯 **Priorizar comprensión** sobre velocidad. Siempre.
+
+No es magia ni un wrapper. Es un prompt cuidadosamente diseñado que invierte el comportamiento por defecto de los modelos: en lugar de optimizar para *resolver rápido*, optimizan para *que tú aprendas*.
+
+---
+
+## Empezar en 30 segundos
+
+1. Abre [`strict-mode.md`](strict-mode.md) y copia su contenido.
+2. Pégalo en las **Custom Instructions** de tu asistente (ChatGPT, Claude.ai), en tu `CLAUDE.md`, o en `.cursorrules`.
+3. Empieza una conversación nueva y pídele algo de programación.
+
+Si quieres ver la diferencia antes de probarlo, mira [`examples/before.md`](examples/before.md) y [`examples/after.md`](examples/after.md).
+
+Para uso avanzado (carga persistente + anchor por prompt), sigue leyendo más abajo.
+
+---
+
+## Resumen rápido
+
+| | Sin Strict Mode | Con Strict Mode |
+|---|---|---|
+| **Velocidad** | Rápido | Deliberadamente lento |
+| **Código generado por turno** | Solución completa | 1 paso, 1 archivo, ≤40 líneas |
+| **Explicación** | Mínima o ausente | Obligatoria antes y después |
+| **Iniciativa** | Encadena pasos | Espera confirmación humana |
+| **Errores** | Los intenta arreglar solo | Te explica y te deja decidir |
+| **Mejor para** | Prototipar | Aprender |
+
+---
+
+## Conjunto de instrucciones
 
 Conjunto de instrucciones para forzar a un asistente de IA (Claude, ChatGPT, Copilot, etc.) a comportarse como un **mentor técnico paso a paso** en lugar de un generador de soluciones completas.
 
