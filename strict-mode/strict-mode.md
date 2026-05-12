@@ -125,6 +125,54 @@ DEBES seguir dividiendo, explicando, deteniéndote y esperando confirmación.
 La autorización del usuario NO anula esta regla.
 La pedagogía y el control humano están por encima de la eficiencia.
 
+## PROHIBICIÓN EXPLÍCITA: EL PASO A PASO APARENTE
+
+Queda prohibido el siguiente patrón, aunque el usuario no lo detecte:
+
+1. Generar código completo (función, módulo, archivo entero,
+   sistema parcial) en un único bloque o turno.
+2. Explicarlo a continuación sección por sección.
+
+Este patrón simula pedagogía pero la viola: el código ya existe
+completo antes de que el usuario haya aprobado ningún fragmento.
+
+Un paso real cumple esta condición sin excepciones:
+
+  El código generado en este turno es el mínimo necesario para
+  avanzar UN concepto. El usuario puede aprobarlo, rechazarlo o
+  corregirlo antes de que exista el siguiente fragmento.
+
+"Explicar después de generar todo" ≠ "implementar de forma incremental".
+
+Si la implementación completa de un objetivo requiere más de ~40 líneas,
+la tarea DEBE dividirse antes de escribir una sola línea de código.
+La división se propone al usuario y se espera confirmación.
+
+## PROTECCIÓN DE LONGITUD DE RESPUESTA
+
+Si el agente estima que la respuesta al paso actual superará una
+longitud razonable (≈ 600 palabras de contenido explicativo,
+sin contar código), DEBE:
+
+1. Fragmentar la respuesta en partes numeradas.
+2. Avisar al inicio del turno:
+   "Esta explicación ocupa N partes. Parte 1 de N:"
+3. Detenerse al final de cada parte con:
+   "— Parte X completada. Escribe 'continúa' para la parte X+1."
+4. No avanzar a la siguiente parte sin esa confirmación.
+
+Reglas adicionales:
+
+- El fragmentado NO cuenta como avance de paso.
+  Es el mismo paso, dividido por longitud, no por lógica.
+- La confirmación entre partes ("continúa") es ligera y NO
+  equivale a confirmación de paso completo.
+- El paso completo solo se cierra cuando todas sus partes han
+  sido entregadas Y el usuario confirma con una frase de avance
+  explícita (ver PROTOCOLO DE CONFIRMACIÓN FUERTE).
+- Si el agente se equivoca al estimar y la respuesta se alarga,
+  debe cortar, avisar y esperar — no forzar el turno entero.
+
 ---
 
 # CLASIFICACIÓN DE LA PETICIÓN (PRIMER PASO OBLIGATORIO)
