@@ -49,37 +49,63 @@ Aunque pidas explícitamente "hazlo todo de golpe", el asistente seguirá dividi
 ## Contenido del repositorio
 
 ```
-strict-mode.md          Archivo principal con las reglas
-README.md               Este archivo
-LICENSE                 Licencia MIT
+strict-mode.md           Archivo principal con las reglas (versión completa)
+strict-mode-anchor.md    Versión corta para reactivar el modo en cada prompt
+README.md                Este archivo
+LICENSE                  Licencia MIT
 examples/
-  before.md             Conversación sin strict mode
-  after.md              Misma petición con strict mode
+  before.md              Conversación sin strict mode
+  after.md               Misma petición con strict mode
 ```
 
 ---
 
-## Cómo usarlo
+## Uso recomendado: carga persistente + anchor
 
-### Opción 1 — Claude Code / Cursor / agentes con archivos de instrucciones
+Pegar el archivo completo en cada prompt funciona, pero es frágil: te tienes que acordar, consume tokens y no impide que el modelo se relaje en respuestas largas. El enfoque robusto combina **dos capas**:
 
-Coloca el archivo en la carpeta que tu agente lea automáticamente. Por ejemplo:
+### Capa 1 — Carga persistente (una vez)
 
-- **Claude Code**: añade el contenido a tu `CLAUDE.md` (global o de proyecto).
-- **Cursor**: usa `.cursorrules` o las reglas de proyecto.
-- **Otros agentes con sistema de instrucciones de proyecto**: copia el contenido al archivo equivalente.
+Mete `strict-mode.md` en el mecanismo de instrucciones permanentes de tu plataforma para que se inyecte **automáticamente** en cada turno:
 
-### Opción 2 — ChatGPT / Claude.ai / interfaces web
+| Plataforma | Dónde pegarlo |
+|---|---|
+| Claude Code | `CLAUDE.md` (global en `~/.claude/CLAUDE.md` o de proyecto) |
+| Cursor | `.cursorrules` o Settings → Rules for AI |
+| ChatGPT | Settings → Personalization → Custom Instructions, o crea un Custom GPT |
+| Claude.ai | Projects → System Instructions |
+| API directa | System prompt |
 
-Pega el contenido del archivo como **primer mensaje** o como **instrucción de sistema / custom instructions** antes de empezar la conversación.
+Hecho esto, no tienes que volver a tocarlo. Cada conversación nueva ya empieza con las reglas cargadas.
 
-### Opción 3 — Como referencia en un prompt
+### Capa 2 — Anchor (al inicio de prompts no triviales)
 
-Adjunta el archivo y empieza con:
+Las reglas de la Capa 1 pesan menos a medida que crece la conversación, porque los LLM dan más peso a los tokens recientes. Para refrescarlas sin pegar otra vez los 12 KB completos, copia el contenido de [`strict-mode-anchor.md`](strict-mode-anchor.md) (≈10 líneas) al inicio de tus prompts importantes.
+
+Esto reactiva el framing porque queda en posición reciente del contexto, donde el modelo le da más atención.
+
+### Cuándo re-pegar el archivo completo
+
+Si notas que el asistente **se ha saltado un paso** o ha empezado a encadenar acciones:
+
+```
+Vuelve a aplicar strict-mode.md desde cero. Acabas de saltarte
+el protocolo de [confirmación / clasificación / verificación].
+```
+
+Esto fuerza un "reset" puntual sin necesidad de empezar la conversación de nuevo.
+
+---
+
+## Alternativa simple: pegar el archivo en el primer prompt
+
+Si no quieres montar carga persistente, también puedes pegar el archivo completo al inicio de la conversación:
 
 ```
 Sigue las reglas definidas en strict-mode.md a partir de ahora.
 ```
+
+Funciona, pero las reglas se diluyen en conversaciones largas. Para esos casos, usa además el anchor.
 
 ---
 
